@@ -9,7 +9,7 @@ uploads
 
 # mobile
 mobile
-
+*.json.gz
 # Runtime data
 pids
 *.pid
