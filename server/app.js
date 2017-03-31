@@ -12,9 +12,9 @@ import path from 'path';
 import compose from 'koa-compose';
 
 const app = new Koa();
-const LOG = log4js.getLogger('file')
-const wosaiFs = require('./modules/fs')
-
+const LOG = log4js.getLogger('file');
+const wosaiFs = require('./modules/fs');
+require('./models');
 
 //configure basic app
 baseconfig(app)
@@ -24,6 +24,7 @@ baseconfig(app)
 
 const dirTree = wosaiFs.readDirDeepSync(path.resolve(__dirname, 'routes'));
 wosaiFs.genRouteByDirTree(dirTree).forEach((route) => {
+    console.log(route);
     app.use(compose([
         require(route.path).default.routes(),
         require(route.path).default.allowedMethods(),

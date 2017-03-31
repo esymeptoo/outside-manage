@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>旅游目的地</title>
+    <title>绿野仙踪后台管理系统</title>
     {% if process.env.NODE_ENV !== "development" %}
     <link rel="stylesheet" href="client/index.css" />
     {% else %}

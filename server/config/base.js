@@ -12,8 +12,8 @@ import views from 'koa-views';
 import proxy from 'koa-proxy';
 import config from './config'
 
-import './passport';
-import passport from 'koa-passport';
+//import './passport';
+//import passport from 'koa-passport';
 
 import log4js from 'log4js';
 
@@ -24,7 +24,9 @@ export default function middleware(app) {
     log4js.configure({
         appenders: [
             { type: 'console' },
-            { type: 'dateFile', filename: __dirname + '/../tmp/server.log' , "pattern":"-yyyy-MM-dd-hh.log","alwaysIncludePattern":false, category: 'file' }
+            { type: 'dateFile', filename: __dirname + '/../tmp/file/server.log' , "pattern":"-yyyy-MM-dd-hh.log","alwaysIncludePattern":false, category: 'file' },
+            { type: 'dateFile', filename: __dirname + '/../tmp/news/server.log' , "pattern":"-yyyy-MM-dd-hh.log","alwaysIncludePattern":false, category: 'news' },
+            { type: 'dateFile', filename: __dirname + '/../tmp/activity/server.log' , "pattern":"-yyyy-MM-dd-hh.log","alwaysIncludePattern":false, category: 'activity' }
         ],
         replaceConsole: true
     });
@@ -65,8 +67,8 @@ export default function middleware(app) {
     app.keys = ['tailv-session-key'];
     app.use(convert(session()));
 
-    app.use(passport.initialize())
-    app.use(passport.session())
+    //app.use(passport.initialize())
+    //app.use(passport.session())
     //
     app.use(views(__dirname + '/../views', {extension: 'swig'}))
 

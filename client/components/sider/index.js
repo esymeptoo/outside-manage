@@ -36,17 +36,13 @@ class Sider extends React.Component {
                 mode="inline"
             >
                 <SubMenu key="daily" title={<span onClick={()=>this.setState({openKeys : ["daily"]})}><Icon type="file" /><span>每日一趣</span></span>}>
-                    <Menu.Item key="newspaper"><Link to="/daily/newspaper">新闻</Link></Menu.Item>
+                    <Menu.Item key="newspaper"><Link to="/daily/newspaper">新闻列表</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="pushTask" title={<span onClick={()=>this.setState({openKeys : ["pushTask"]})}><Icon type="appstore" /><span>推送管理</span></span>}>
-                    <Menu.Item key="list"><Link to="/pushTask/list">推送管理</Link></Menu.Item>
-                    <Menu.Item key="subReplyList"><Link to="/pushTask/subReplyList">关注自动回复</Link></Menu.Item>
-                    <Menu.Item key="wordReplyList"><Link to="/pushTask/wordReplyList">关键字自动回复</Link></Menu.Item>
+                <SubMenu key="pushTask" title={<span onClick={()=>this.setState({openKeys : ["pushTask"]})}><Icon type="appstore" /><span>官方活动</span></span>}>
+                    <Menu.Item key="list"><Link to="/activity/list">活动列表</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="system" title={<span onClick={()=>this.setState({openKeys : ["system"]})}><Icon type="setting" /><span>系统设置</span></span>}>
-                    <Menu.Item key="userList"><Link to="/system/userList">用户管理</Link></Menu.Item>
-                    <Menu.Item key="groupList"><Link to="/system/groupList">群组管理</Link></Menu.Item>
-                    <Menu.Item key="appSetting"><Link to="/system/appSetting">公众号配置</Link></Menu.Item>
+                <SubMenu key="system" title={<span onClick={()=>this.setState({openKeys : ["system"]})}><Icon type="setting" /><span>商品管理</span></span>}>
+                    <Menu.Item key="userList"><Link to="/brand/list">商品列表</Link></Menu.Item>
                 </SubMenu>
             </Menu>
         );

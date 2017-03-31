@@ -17,7 +17,7 @@ function Layout({nav, sider, children }) {
                 <div className={styles.sider}>{sider}</div>
                 <div className={styles.content}>
                     <div style={{ height: 1040 }}>
-                        <div style={{ clear: 'both', border: '1px solid red' }}>{children}</div>
+                        <div>{children}</div>
                     </div>
                 </div>
             </div>

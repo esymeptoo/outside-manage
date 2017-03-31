@@ -1,11 +1,17 @@
 /**
+ * Created by e on 17/3/31.
+ */
+/**
+ * Created by e on 17/3/31.
+ */
+/**
  * Created by e on 17/3/29.
  */
 import fetch from 'dva/fetch';
 import { message } from 'antd';
 
 export default {
-    namespace: 'newspaper',
+    namespace: 'activity',
     state: {
         loading: true,
         list: [],
@@ -14,30 +20,31 @@ export default {
     subscriptions: {
         setup({ dispatch, history }) {
             history.listen(location => {
-                if (location.pathname === '/daily/newspaper') {
+                if (location.pathname === '/activity/list') {
                     dispatch({
-                        type: 'queryNews'
+                        type: 'queryActivity'
                     })
                 }
             });
         },
     },
     effects: {
-        * queryNews({ payload }, { put }) {
-            const res = yield fetch(`/news/queryNews`);
+        * queryActivity({ payload }, { put }) {
+            const res = yield fetch(`/activity/queryActivity`);
             if (res.status >= 400) {
                 message.error('获取数据失败,请刷新后重试~');
             }
             const list = yield res.json();
+            console.log(list);
             yield put({
-                type: 'queryNewsSuccess',
+                type: 'queryActivitySuccess',
                 payload: {
                     list: list,
                 }
             })
         },
-        * newsDelete({ payload }, { put }) {
-            const res = yield fetch(`/news/deleteNews`, {method: 'POST', body:JSON.stringify(payload), headers:{'Content-Type': 'application/json'}});
+        * activityDelete({ payload }, { put }) {
+            const res = yield fetch(`/activity/deleteActivity`, {method: 'POST', body:JSON.stringify(payload), headers:{'Content-Type': 'application/json'}});
             if (res.status >= 400) {
                 message.error('获取数据失败,请刷新后重试~');
             }
@@ -58,7 +65,7 @@ export default {
         },
     },
     reducers: {
-        queryNewsSuccess(state, action) {
+        queryActivitySuccess(state, action) {
             return {
                 ...state,
                 loading: false,

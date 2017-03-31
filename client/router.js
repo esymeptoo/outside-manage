@@ -29,11 +29,21 @@ function routesConfig({ history, app }) {
                 },
                 {
                     path: 'daily/newspaper',
-                    name: 'newspaper',
+                    name: 'newspaperList',
                     getComponent(nextState, cb) {
                         require.ensure([], require => {
                             registerModel(app, require('./models/newspaper'));
                             cb(null, require('./routes/daily/newspaper'))
+                        })
+                    }
+                },
+                {
+                    path: 'activity/list',
+                    name: 'activityList',
+                    getComponent(nextState, cb) {
+                        require.ensure([], require => {
+                            registerModel(app, require('./models/activity'));
+                            cb(null, require('./routes/activity/activity'))
                         })
                     }
                 }
