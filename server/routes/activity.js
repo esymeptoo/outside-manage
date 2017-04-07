@@ -8,14 +8,18 @@ import Logger from 'log4js';
 const logger = Logger.getLogger('activity');
 
 router.get('/queryActivity', async (ctx) => {
-    ctx.body = await getActivity();
+    ctx.body = await getActivity(ctx.query.page, ctx.query.limit);
 });
 router.post('/deleteActivity', async (ctx) => {
     const res = await deleteActivity(ctx.request.body._id);
+    logger.info(`delete _id:${ctx.request.body._id} successfully`);
     if (res.n == 1 && res.ok == 1) {
-        logger.info(`delete _id:${ctx.request.body._id} successfully`);
+        //删除成功 继续查询
+        const _res = await getActivity(ctx.request.body.page, ctx.request.body.limit);
         ctx.body = {
             result: 1,
+            total: _res.total,
+            list: _res.list,
         }
     } else {
         logger.error(`delete _id:${ctx.request.body._id} fail`);
@@ -24,5 +28,4 @@ router.post('/deleteActivity', async (ctx) => {
         }
     }
 });
-
 export default router;

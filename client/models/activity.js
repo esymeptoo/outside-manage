@@ -13,16 +13,20 @@ import { message } from 'antd';
 export default {
     namespace: 'activity',
     state: {
-        loading: true,
+        loading: false,
         list: [],
-        total: 10,
+        total: null,
     },
     subscriptions: {
         setup({ dispatch, history }) {
             history.listen(location => {
                 if (location.pathname === '/activity/list') {
                     dispatch({
-                        type: 'queryActivity'
+                        type: 'queryActivity',
+                        payload: {
+                            limit: 10,
+                            page: 1,
+                        }
                     })
                 }
             });
@@ -30,57 +34,66 @@ export default {
     },
     effects: {
         * queryActivity({ payload }, { put }) {
-            const res = yield fetch(`/activity/queryActivity`);
+            yield put({
+                type: 'loading',
+            });
+            const res = yield fetch(`/activity/queryActivity?limit=${payload.limit}&page=${payload.page}`);
             if (res.status >= 400) {
                 message.error('获取数据失败,请刷新后重试~');
             }
             const list = yield res.json();
-            console.log(list);
             yield put({
                 type: 'queryActivitySuccess',
                 payload: {
-                    list: list,
+                    list: list.list,
+                    total: list.total,
                 }
             })
         },
         * activityDelete({ payload }, { put }) {
+            yield put({
+                type: 'loading',
+            });
             const res = yield fetch(`/activity/deleteActivity`, {method: 'POST', body:JSON.stringify(payload), headers:{'Content-Type': 'application/json'}});
             if (res.status >= 400) {
                 message.error('获取数据失败,请刷新后重试~');
             }
             const result = yield res.json();
-            console.log(result);
             if (result.result) {
                 message.success('删除成功');
                 yield put({
                     type: 'deleteSuccess',
                     payload: {
-                        _id: payload._id,
+                        list: result.list,
+                        total: result.total,
                     }
                 })
             } else {
                 message.error('删除失败, 请刷新后重试');
             }
-
         },
     },
     reducers: {
+        loading(state, action) {
+            return {
+                ...state,
+                loading: true,
+            }
+        },
         queryActivitySuccess(state, action) {
             return {
                 ...state,
                 loading: false,
                 list: action.payload.list,
-                total: action.payload.list.length,
+                total: action.payload.total,
             }
         },
         deleteSuccess(state, action) {
-            const list = state.list.filter((item) => {
-                return item._id != action.payload._id;
-            })
             return {
                 ...state,
-                list: list,
-                total: list.length,
+                list: action.payload.list,
+                total: action.payload.total,
+                loading: false,
             }
         },
     },

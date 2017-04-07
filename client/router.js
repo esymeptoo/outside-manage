@@ -14,7 +14,7 @@ function routesConfig({ history, app }) {
             path: '/',
             indexRoute: {
                 onEnter: (nextState, replace) => {
-                    replace('user/login');
+                    replace('daily/newspaper');
                 },
             },
             childRoutes: [
@@ -34,6 +34,16 @@ function routesConfig({ history, app }) {
                         require.ensure([], require => {
                             registerModel(app, require('./models/newspaper'));
                             cb(null, require('./routes/daily/newspaper'))
+                        })
+                    }
+                },
+                {
+                    path: 'daily/addNews',
+                    name: 'addNews',
+                    getComponent(nextState, cb) {
+                        require.ensure([], require => {
+                            registerModel(app, require('./models/addNewspaper'));
+                            cb(null, require('./routes/daily/addNewspaper'))
                         })
                     }
                 },

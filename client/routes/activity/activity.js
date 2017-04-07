@@ -7,6 +7,7 @@ import { connect } from 'dva';
 import {Popconfirm, Table, Button,Row ,Col, Modal, Spin, message} from 'antd';
 import styles from './index.less';
 import { Link } from 'dva/router';
+import { edit1 } from '../../../server/config/development';
 
 Date.prototype.Format = function (fmt) {
     var o = {
@@ -27,14 +28,29 @@ class Activity extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            limit: 10,
+            page: 1,
         }
     }
+    pageChange = (page) => {
+        this.setState({
+            page: page,
+        });
+        this.props.dispatch({
+            type: 'activity/queryActivity',
+            payload: {
+                limit: this.state.limit,
+                page: page,
+            }
+        });
+    };
     confirmDelete = (_id) => {
         this.props.dispatch({
             type: 'activity/activityDelete',
             payload: {
                 _id: _id,
+                limit: this.state.limit,
+                page: this.state.page,
             }
         })
     };
@@ -70,7 +86,7 @@ class Activity extends React.Component {
                 }
             }
         }, {
-            title: '标题',
+            title: '主题',
             dataIndex: 'activity_title',
             key: 'activity_title',
         }, {
@@ -79,8 +95,13 @@ class Activity extends React.Component {
             key: 'limit',
         }, {
             title: '报名人数',
-            dataIndex: 'activity_id',
-            key: 'activity_id',
+            dataIndex: 'join_num',
+            key: 'join_num',
+            render: (text, record) => {
+                return (
+                    <p>{text+ 1}</p>
+                )
+            }
         }, {
             dataIndex: '_id',
             key: '_id',
@@ -98,13 +119,15 @@ class Activity extends React.Component {
         return (
             <Layout location={this.props.location}>
                 <div className={styles.title}>官方活动
-                    <Button type="primary" className={styles.new}>新增活动</Button>
+                    <a href={edit1 + 'activity/launch?type=0'} target="_blank">
+                        <Button type="primary" className={styles.new}>新增活动</Button>
+                    </a>
                 </div>
                 <Table className={styles.activity} columns={columns}
                        loading={this.props.activity.loading}
                        dataSource={this.props.activity.list}
                        rowKey={record=>record.id}
-                       pagination={{showQuickJumper:true, pageSize:10, total: this.props.activity.total}}
+                       pagination={{showQuickJumper:true, pageSize:10, total: this.props.activity.total, onChange:(val) => {this.pageChange(val)}}}
                 />
             </Layout>
         )

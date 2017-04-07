@@ -19,6 +19,7 @@ const Activity_Schema = new Schema({
     type: Number,                     //1代表民间发布 0代表官方发布
     date: Date | null,
     status: Number,                 //活动状态 1表示活动结束
+    join_num: Number,
 }, {
     versionKey: false,
 });

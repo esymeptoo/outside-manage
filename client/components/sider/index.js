@@ -38,11 +38,11 @@ class Sider extends React.Component {
                 <SubMenu key="daily" title={<span onClick={()=>this.setState({openKeys : ["daily"]})}><Icon type="file" /><span>每日一趣</span></span>}>
                     <Menu.Item key="newspaper"><Link to="/daily/newspaper">新闻列表</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="pushTask" title={<span onClick={()=>this.setState({openKeys : ["pushTask"]})}><Icon type="appstore" /><span>官方活动</span></span>}>
+                <SubMenu key="activity" title={<span onClick={()=>this.setState({openKeys : ["activity"]})}><Icon type="appstore" /><span>官方活动</span></span>}>
                     <Menu.Item key="list"><Link to="/activity/list">活动列表</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="system" title={<span onClick={()=>this.setState({openKeys : ["system"]})}><Icon type="setting" /><span>商品管理</span></span>}>
-                    <Menu.Item key="userList"><Link to="/brand/list">商品列表</Link></Menu.Item>
+                <SubMenu key="shopping" title={<span onClick={()=>this.setState({openKeys : ["shopping"]})}><Icon type="setting" /><span>商品管理</span></span>}>
+                    <Menu.Item key="list"><Link to="/brand/list">商品列表</Link></Menu.Item>
                 </SubMenu>
             </Menu>
         );
