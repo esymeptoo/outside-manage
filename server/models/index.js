@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const config = require('../config')();
 
 mongoose.Promise = global.Promise;
-//mongoose.set('debug', true);
+mongoose.set('debug', true);
 var db=mongoose.connect(config.mongoDb);
 
 db.connection.on("error", function (error) {

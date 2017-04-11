@@ -56,6 +56,16 @@ function routesConfig({ history, app }) {
                             cb(null, require('./routes/activity/activity'))
                         })
                     }
+                },
+                {
+                    path: 'brand/list',
+                    name: 'brandList',
+                    getComponent(nextState, cb) {
+                        require.ensure([], require => {
+                            registerModel(app, require('./models/brandList'));
+                            cb(null, require('./routes/brand/index'))
+                        })
+                    }
                 }
             ]
         }

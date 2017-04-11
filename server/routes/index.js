@@ -9,6 +9,7 @@ import RouterAuth from './auth';
 import RouterOpen from './open';
 import RouterNews from './news';
 import RouterActivity from './activity';
+import RouterBrand from './brand';
 
 const router =  new Router();
 
@@ -26,6 +27,7 @@ router.get('/', async (ctx, next) => {
 //router.use('/mock', RouterMock.routes(), RouterMock.allowedMethods())
 router.use('/news', RouterNews.routes(), RouterNews.allowedMethods());
 router.use('/activity', RouterActivity.routes(), RouterActivity.allowedMethods());
+router.use('/brand', RouterBrand.routes(), RouterBrand.allowedMethods());
 
 //router.get('*', async (ctx, next) => {
 //    ctx.body = { status : 404 }
