@@ -111,7 +111,7 @@ class Activity extends React.Component {
                         <Popconfirm title="确定要删除?" onConfirm={() => {this.confirmDelete(text)}} okText="Yes" cancelText="No">
                             <a>删除</a>
                         </Popconfirm>&nbsp;&nbsp;
-                        <a href="https://www.baidu.com" target="_blank">查看详情</a>
+                        <a href={edit1 + 'activity/join?id=' + record.activity_id} target="_blank">预览</a>
                     </p>
                 )
             }
