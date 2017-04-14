@@ -8,7 +8,7 @@ const Nav = ({  otherProps }) => {
     function exit() {
         localStorage.removeItem('admin');
         localStorage.removeItem('isLogin');
-        location.href= "/?#/user/login";
+        location.href= "http://localhost:5000/?#/user/login?_k=rkg0fw";
     }
     return (<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['tool']}
                   selectedKeys={[location.pathname.split('/')[1]]} {...otherProps}>

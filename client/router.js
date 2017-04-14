@@ -23,6 +23,7 @@ function routesConfig({ history, app }) {
                     name: 'login',
                     getComponent(nextState, cb) {
                         require.ensure([], require => {
+                            registerModel(app, require('./models/login'));
                             cb(null, require('./routes/login'))
                         })
                     }
